@@ -1,0 +1,7 @@
+.main-bg{
+    background-image: url(https://t4.ftcdn.net/jpg/02/69/09/69/360_F_269096915_ZdBDh5VK5b4moAzWWLJceXRNTA5ECJXc.jpg);
+    backdrop-filter: blur(1px);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+}
