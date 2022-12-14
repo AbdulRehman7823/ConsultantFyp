@@ -50,7 +50,7 @@ function TopCard() {
         className="block w-92 p-6 bg-blue-700 border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
       >
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-100 dark:text-white">
-          Total Poetries
+          Total Tests
         </h5>
         <p className="font-bold text-5xl  text-gray-100 dark:text-gray-400">
             {totalPoetries}
