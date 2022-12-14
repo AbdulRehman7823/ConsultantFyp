@@ -9,14 +9,16 @@ import SellerAddComponentPage from './components/Pages/SellerPages/SellerAddComp
 import SellerDeleteComponentPage from './components/Pages/SellerPages/SellerDeleteComponentPage';
 import SellerSubscriberPage from './components/Pages/SellerPages/SellerSubscriberPage';
 import SellerRequestPages from './components/Pages/SellerPages/SellerRequestPages';
-import PoetCardList from "./components/PoetCard/PoetCardList";
+import InstructorCardList from "./components/Instructor/InstructorCardList";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PoetryList from "./components/Poetries/PoetryList";
-import PoetPoetryList from "./components/PoetCard/PoetPoetryList";
-import BuySubscription from "./components/PoetCard/BuySubscription";
+import TestList from "./components/Tests/TestsList";
+import InstructorTestsList from "./components/Instructor/InstructorTestsList";
+import BuySubscription from "./components/Instructor/BuySubscription";
 import Navbar from './components/FrontPageComponents/Navbar/Navbar'
 import Footer from './components/FrontPageComponents/Footer/Footer';
+import AboutUs from './components/AboutUs/AboutUs';
+import PlayQuiz from './components/QuickTest/PlayQuiz'
 
 
 function App() {
@@ -29,23 +31,28 @@ function App() {
         pauseOnHover={false}
         pauseOnFocusLoss={false}
       />
+      <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<FrontPage></FrontPage>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element = {<SignupPage></SignupPage>}/>
         <Route path="/contactus" element = {<ContactPage/>}/>
+        <Route path="/aboutus" element = {<AboutUs/>}/>
+        <Route path="/quicktest" element = {<PlayQuiz/>}/>
         <Route path="/app/seller/home" element={<SellerHomePage/>}/>
          <Route path="/app/seller/add" element={<SellerAddComponentPage/>}/>
          <Route path="/app/seller/delete" element={<SellerDeleteComponentPage/>}/>
          <Route path="/app/seller/profile" element={<SellerRequestPages/>}/>
          <Route path="/app/seller/subscribers" element={<SellerSubscriberPage/>}/>
 
-         <Route path="/poets" element={<PoetCardList />} />
-        <Route path="/poetries" element={<PoetryList />} />
-        <Route path="/poet/poetries" element={<PoetPoetryList />} />
-        <Route path="/poet/buysubscription" element={<BuySubscription />} />
+         <Route path="/instructors" element={<InstructorCardList />} />
+        <Route path="/tests" element={<TestList />} />
+        <Route path="/instructors/tests" element={<InstructorTestsList />} />
+        <Route path="/instructors/buysubscription" element={<BuySubscription />} />
+        
+        
       </Routes>
-    
+      <Footer></Footer>
     </Router>
   )
 }

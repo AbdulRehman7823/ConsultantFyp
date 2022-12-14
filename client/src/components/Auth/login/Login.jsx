@@ -80,7 +80,7 @@ function Login() {
       ) : 
     <section className="main-bg flex justify-center  h-screen items-center">
       <div
-        className="shadow-3xl rounded-xl py-16 bg-white my-12 w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/2 px-6 lg:px-16 xl:px-12
+        className="shadow-3xl rounded-xl py-16 bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/2 px-6 lg:px-16 xl:px-12
           flex items-center justify-center"
       >
         <div className="w-full h-100">

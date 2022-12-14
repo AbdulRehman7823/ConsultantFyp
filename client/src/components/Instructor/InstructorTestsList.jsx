@@ -1,19 +1,24 @@
-import React, { useState } from "react";
-import readerServices from "../Services/ReaderServices";
+import React, { useEffect, useState } from "react";
 import RiseLoader from "react-spinners/RiseLoader";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
-import PoetryCard from "./PoetryCard";
-
-const PoetryList = () => {
+import TestCard from "../Tests/TestCard";
+import { useLocation, useNavigate } from "react-router-dom";
+import poetServices from "../Services/PoetServices";
+const InstructorTestsList = () => {
+  const location = useLocation();
   const [loading, setLoading] = React.useState(false);
-
+  const [poetId, setPoetId] = useState(location.state.poetId);
+  const navigation = useNavigate();
   const [poetries, setPoetries] = React.useState([]);
+  useEffect(() => {
+    getData();
+  }, [poetId]);
   function getData() {
     setLoading(true);
 
-    readerServices
-      .getPoetries()
+    poetServices
+      .getAllPoetries(poetId._id)
       .then((data) => {
         console.log(data);
         setPoetries(data);
@@ -24,6 +29,7 @@ const PoetryList = () => {
         setLoading(false);
       });
   }
+
   const handleOnSearch = (string, results) => {
     console.log(string, results);
   };
@@ -43,13 +49,14 @@ const PoetryList = () => {
       </>
     );
   };
-
-  React.useEffect(getData, []);
+  const handleSubscription = () => {
+    navigation("/poet/buysubscription", { state: { poet: poetId } });
+  };
   return (
     <section class="text-gray-600 body-font">
       <div class="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap justify-center md:justify-between m-6">
-          
+        
 
           <div>
             <div className="">
@@ -80,7 +87,7 @@ const PoetryList = () => {
             </p>
           </div>
         </div>
-        <div className="flexjustify-center">
+        <div className="flex justify-center">
           <RiseLoader
             color={"#2237ac"}
             loading={loading}
@@ -88,19 +95,26 @@ const PoetryList = () => {
           />
         </div>
         {poetries.length === 0 && !loading ? (
-          <p>There is no poetry yet!</p>
+          <p>There is poetry yet!</p>
         ) : (
-          <div class="flex py-6 rounded-xl bg-gray-100 flex-wrap justify-between flex-row">
+          <div class="flex bg-gray-100 py-8 px-4 flex-wrap justify-between flex-row">
             {poetries.map((poetry, index) => (
-              
-                <PoetryCard key={index} poetry={poetry}></PoetryCard>
-            
+                <TestCard key={index} poetry={poetry}></TestCard>
             ))}
           </div>
         )}
+        <div className="flex justify-center my-10">
+          <button
+            onClick={handleSubscription}
+            type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Buy subscription
+          </button>
+        </div>
       </div>
     </section>
   );
 };
 
-export default PoetryList;
+export default InstructorTestsList;

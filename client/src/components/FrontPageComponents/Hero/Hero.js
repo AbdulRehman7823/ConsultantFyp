@@ -7,19 +7,19 @@ function Hero() {
   return (
     <div className="h-screen w-full items-center justify-center header">
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        In the world Of Poets
+        Career Span!
       </h1>
-      <p className="mb-6 text-xl font-normal text-gray-700 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-        What is a poet? An unhappy person who conceals profound anguish in his
-        heart but whose lips are so formed that as sighs and cries pass over
-        them they sound like beautiful music
-      </p>
+      <h2 className="mb-6 text-2xl font-normal text-gray-700 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+      Career Span helps you find your career!
+      Here we are waiting for you to come and let us now your skill based on test
+      We offer DAT to our customers so they can choose a correct field
+      </h2>
 
       {authServices.isLoggedIn() && authServices.getLoggedInUser().userType==="poet"?
      <>
      <a
         onClick={()=>{navigate("/app/seller/home")}}
-        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-700 bg-gray-200 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
       >
         Open DashBoard
         <svg
@@ -38,10 +38,11 @@ function Hero() {
      </>: 
 
       <a
-        href="#"
-        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+        type="button"
+        onClick={()=>{navigate("/quicktest")}}
+        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-700 bg-gray-200 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
       >
-        Learn more
+        Start Quiz!
         <svg
           className="ml-2 -mr-1 w-5 h-5"
           fill="currentColor"
