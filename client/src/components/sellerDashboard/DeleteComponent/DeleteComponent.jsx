@@ -1,5 +1,5 @@
 import React from "react";
-import PoetryList from "../PoetryList/PoetryList";
+import DeleteTestCardList from "../DeleteList/DeleteTestCardList";
 
 function DeleteComponent() {
   return (
@@ -46,7 +46,7 @@ function DeleteComponent() {
       </form>
 
 <div className="mt-8">
-      <PoetryList></PoetryList>
+      <DeleteTestCardList></DeleteTestCardList>
       </div>
     </div>
   );

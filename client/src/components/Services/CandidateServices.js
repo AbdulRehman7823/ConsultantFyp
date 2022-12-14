@@ -5,8 +5,9 @@ class CandidateServices extends GenericService {
     super();
   }
 
-  getInstructors = () => this.get("admin/poets");
-  getQuizes = () => this.get("admin/poetries");
+  getInstructors = () => this.get("admin/instructors");
+  getQuizes = () => this.get("admin/tests");
+  getQuickTest = () => this.get("admin/quickTest");
   requestPoet = (_id, data) =>
     this.post("candidate/request/instructor/" + _id, data);
     buySubscription = (data) => this.post("checkout/create-checkout", data);

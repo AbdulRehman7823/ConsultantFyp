@@ -4,7 +4,7 @@ import convertImageToBase64 from "../../ImageBase64";
 import { uploadImage } from "../../ImageUpload";
 import { useNavigate } from "react-router-dom";
 import alert from "../../Services/Alert";
-import poetServices from "../../Services/PoetServices";
+import InstructorServices from "../../Services/InstructorServices";
 import authServices from "../../Services/AuthServices";
 import Questions from "./Questions";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
@@ -24,7 +24,7 @@ function AddComponent() {
   function handleData(key, value) {
     setData({ ...data, [key]: value });
   }
-  const addPoetry = (e) => {
+  const handleSave  = (e) => {
     e.preventDefault();
     if (!data.img) {
       alert.showErrorAlert("Please upload image");
@@ -35,12 +35,15 @@ function AddComponent() {
       return;
     }
 
-    handleData("poetId", authServices.getLoggedInUser()._id);
-    console.log(data);
-    poetServices
-      .addPoetry(data)
+    if(data.testQuestions.length==0){
+      alert.showErrorAlert("Your Quiz Should have atleast one Question");
+      return;
+    }
+    handleData("instructorId", authServices.getLoggedInUser()._id);
+    InstructorServices
+      .addTest(data)
       .then((res) => {
-        alert.showSuccessAlert("Poetry Added Successfully");
+        alert.showSuccessAlert("Test Added Successfully");
         navigate("/app/seller/home");
       })
       .catch((err) => {
@@ -67,9 +70,7 @@ function AddComponent() {
       });
     }
   };
-  const handleSave = () => {
-    console.log(data);
-  };
+  
   const [hide, setHide] = React.useState(false);
 
   return (

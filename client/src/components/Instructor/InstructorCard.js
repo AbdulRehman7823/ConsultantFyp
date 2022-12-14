@@ -6,7 +6,7 @@ function InstructorCard({ instructor }) {
   const navigation = useNavigate();
   const hadleNavigation = (e) => {
     e.preventDefault();
-    navigation("/instructor/tests", { state: { instructorId: instructor } });
+    navigation("/instructors/tests", { state: { instructorId: instructor } });
     console.log("method called");
   };
   return (

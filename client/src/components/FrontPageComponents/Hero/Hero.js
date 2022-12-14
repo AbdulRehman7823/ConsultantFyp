@@ -15,11 +15,11 @@ function Hero() {
       We offer DAT to our customers so they can choose a correct field
       </h2>
 
-      {authServices.isLoggedIn() && authServices.getLoggedInUser().userType==="poet"?
+      {authServices.isLoggedIn() && authServices.getLoggedInUser().userType==="instructor"?
      <>
      <a
         onClick={()=>{navigate("/app/seller/home")}}
-        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-700 bg-gray-200 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
       >
         Open DashBoard
         <svg
@@ -40,7 +40,7 @@ function Hero() {
       <a
         type="button"
         onClick={()=>{navigate("/quicktest")}}
-        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-700 bg-gray-200 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
       >
         Start Quiz!
         <svg

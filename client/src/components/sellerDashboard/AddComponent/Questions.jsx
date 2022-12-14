@@ -8,6 +8,7 @@ import Switch from "@mui/material/Switch";
 import FileUploader from "../../FileUploader";
 import convertImageToBase64 from "../../ImageBase64";
 import { uploadImage } from "../../ImageUpload";
+import alert from "../../Services/Alert";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,14 +59,14 @@ function Questions( {quiz,setQuiz}) {
       questionText: "",
       questionImage: "",
       questionType: "",
-      options: [
-        { optionText: "" },
-        { optionText: "" },
-        { optionText: "" },
-        { optionText: "" },
-      ],
+      option1:"",
+      option2:"",
+      option3:"",
+      option4:"",
+      suggestions:[],
+      score:5,
       answerText: "",
-      answerIndex: 0,
+      answerIndex: 3,
     });
 
     const onDrop = (acceptedFiles, rejectedFiles, imgName) => {
@@ -94,13 +95,16 @@ function Questions( {quiz,setQuiz}) {
     };
 
     function handleData(key, value) {
-      if (key === 1 || key === 2 || key === 3 || key === 0) {
+      if (key === "answerIndex") {
         const obj = { ...data };
-        obj.options[key] = { optionText: value };
-        setData(obj);
-      } else if (key === "answerIndex") {
-        const obj = { ...data };
-        obj.answerText = obj.options[value];
+        if(value==0)
+        obj.answerText = obj.option1;
+        else if(value==1)
+        obj.answerText = obj.option2;
+        else if(value==2)
+        obj.answerText = obj.option3;
+        else if(value==3)
+        obj.answerText = obj.option4;
 
         setData({ ...obj, [key]: value });
       } else {
@@ -109,15 +113,24 @@ function Questions( {quiz,setQuiz}) {
     }
 
     const handleSave = () => {
+      console.log(data)
+      if(data.questionText===""
+        || data.questionType===""
+        || data.option1===""
+        || data.option2===""
+        || data.option3===""
+        || data.option4===""
+        || data.answerText===""
+        ){
+          alert.showErrorAlert("All details are required");
+          return;
+        }
       const questionArray = questions;
       questionArray.push(data);
       setQuestions(questionArray);
       const quizObject = {...quiz}
       quizObject.testQuestions = [...questionArray];
       setQuiz(quizObject)
-      
-      console.log(quiz);
-      console.log(questionArray);
     };
 
     return (
@@ -238,7 +251,7 @@ function Questions( {quiz,setQuiz}) {
           <input
             type="text"
             onChange={(e) => {
-              handleData(0, e.target.value);
+              handleData("option1", e.target.value);
             }}
             id="option1"
             className="mb-6  w-64  mr-4 opacity-xl bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -248,7 +261,7 @@ function Questions( {quiz,setQuiz}) {
           <input
             type="text"
             onChange={(e) => {
-              handleData(1, e.target.value);
+              handleData("option2", e.target.value);
             }}
             id="option2"
             className="mb-6  w-64  mr-4 opacity-xl bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -258,7 +271,7 @@ function Questions( {quiz,setQuiz}) {
           <input
             type="text"
             onChange={(e) => {
-              handleData(2, e.target.value);
+              handleData("option3", e.target.value);
             }}
             id="option3"
             className="mb-6  w-64  mr-4 opacity-xl bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -268,7 +281,7 @@ function Questions( {quiz,setQuiz}) {
           <input
             type="text"
             onChange={(e) => {
-              handleData(3, e.target.value);
+              handleData("option4", e.target.value);
             }}
             id="option4"
             className="mb-6 w-64 mr-4 opacity-xl bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

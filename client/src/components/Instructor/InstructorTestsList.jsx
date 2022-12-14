@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import RiseLoader from "react-spinners/RiseLoader";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-
 import TestCard from "../Tests/TestCard";
 import { useLocation, useNavigate } from "react-router-dom";
-import poetServices from "../Services/PoetServices";
+import InstructorServices from "../Services/InstructorServices";
 const InstructorTestsList = () => {
   const location = useLocation();
   const [loading, setLoading] = React.useState(false);
-  const [poetId, setPoetId] = useState(location.state.poetId);
+  const [instructorId, setInstructorId] = useState(location.state.instructorId);
   const navigation = useNavigate();
-  const [poetries, setPoetries] = React.useState([]);
+  const [tests, setTests] = React.useState([]);
   useEffect(() => {
     getData();
-  }, [poetId]);
+  }, [instructorId]);
   function getData() {
     setLoading(true);
 
-    poetServices
-      .getAllPoetries(poetId._id)
+    InstructorServices
+      .getAllTests(instructorId._id)
       .then((data) => {
         console.log(data);
-        setPoetries(data);
+        setTests(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -33,24 +32,24 @@ const InstructorTestsList = () => {
   const handleOnSearch = (string, results) => {
     console.log(string, results);
   };
-  const handleOnSelect = (poetry) => {
-    setPoetries([poetry]);
+  const handleOnSelect = (test) => {
+    setTests([test]);
   };
   const handleClear = () => {
-    setPoetries([]);
+    setTests([]);
     getData();
   };
-  const formatResult = (poet) => {
+  const formatResult = (Instructor) => {
     return (
       <>
         <span style={{ display: "block", textAlign: "left" }}>
-          {poet.title}
+          {Instructor.title}
         </span>
       </>
     );
   };
   const handleSubscription = () => {
-    navigation("/poet/buysubscription", { state: { poet: poetId } });
+    navigation("/instructors/buysubscription", { state: { Instructor: instructorId } });
   };
   return (
     <section class="text-gray-600 body-font">
@@ -62,7 +61,7 @@ const InstructorTestsList = () => {
             <div className="">
               <div style={{ width: 300 }}>
                 <ReactSearchAutocomplete
-                  items={poetries}
+                  items={tests}
                   fuseOptions={{ keys: ["title"] }}
                   resultStringKeyName="title"
                   onSelect={handleOnSelect}
@@ -71,19 +70,19 @@ const InstructorTestsList = () => {
                   onSearch={handleOnSearch}
                   styling={{ zIndex: 4 }}
                   autoFocus
-                  placeholder="Search poetry by title"
+                  placeholder="Search test by title"
                 />
               </div>
             </div>
           </div>
           <div className="header_text mt-24">
-            <h1 class="w-full items-center mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-              Poets of the new Generation
+          <h1 class="w-full items-center mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
+            We invest in the world’s potential
             </h1>
             <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-              An unhappy person who conceals profound anguish in his heart but
-              whose lips are so formed that as sighs and cries pass over them
-              they sound like beautiful music
+              Here you will met with the 100% professional Instructors who will consults you about everything you
+              To pay for judging your passion will give you a lifetime benifit
+              So don't wait for Getting subscription!!
             </p>
           </div>
         </div>
@@ -94,12 +93,12 @@ const InstructorTestsList = () => {
             css={"margin-top:400px"}
           />
         </div>
-        {poetries.length === 0 && !loading ? (
-          <p>There is poetry yet!</p>
+        {tests.length === 0 && !loading ? (
+          <p>There is test yet!</p>
         ) : (
           <div class="flex bg-gray-100 py-8 px-4 flex-wrap justify-between flex-row">
-            {poetries.map((poetry, index) => (
-                <TestCard key={index} poetry={poetry}></TestCard>
+            {tests.map((test, index) => (
+                <TestCard key={index} test={test}></TestCard>
             ))}
           </div>
         )}

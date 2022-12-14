@@ -10,12 +10,7 @@ import FormLabel from "@mui/material/FormLabel";
 function Preview({ questions }) {
   return (
     <div>
-        {console.log("----------------")
-         
-        }
-{console.log(questions)
-         
-        }
+  
       {questions.map((ques, i) => {
         return (
           <div
@@ -50,22 +45,32 @@ function Preview({ questions }) {
                   aria-labelledby="demo-radio-buttons-group-label"
                   name="radio-buttons-group"
                 >
-                  {questions[i].options.map((op, j) => (
-                    <>
-                      <FormControlLabel
-                        key={j}
-                        value={op.optionText}
+                  <FormControlLabel
+                        value={ques.option1.optionText}
                         control={<Radio />}
-                        label={op.optionText}
+                        label={ques.option1.optionText}
                       />
-                    </>
-                  ))}
+                       <FormControlLabel
+                        value={ques.option2.optionText}
+                        control={<Radio />}
+                        label={ques.option2.optionText}
+                      />
+                       <FormControlLabel
+                        value={ques.option3.optionText}
+                        control={<Radio />}
+                        label={ques.option3.optionText}
+                      />
+                       <FormControlLabel
+                        value={ques.option4.optionText}
+                        control={<Radio />}
+                        label={ques.option4.optionText}
+                      />
                 </RadioGroup>
               </FormControl>
             </div>
             <hr></hr>
             <h2 className="text-md w-1/4  text-gray-100 bg-green-700 shadow-xl rounded-lg p-1">
-              {ques.answerText.optionText}
+              {ques.answerText}
             </h2>
           </div>
         );

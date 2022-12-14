@@ -1,7 +1,7 @@
 import React from "react";
 import alert from "../../Services/Alert";
 import authServices from "../../Services/AuthServices";
-import poetServices from "../../Services/PoetServices";
+import InstructorServices from "../../Services/InstructorServices";
 
 
 
@@ -14,12 +14,12 @@ function TopCard() {
   const [totalSubscriber, setTotalSubscriber] = React.useState(0);
 
   const calculate=() => {
-      poetServices.getAllPoetries(authServices.getLoggedInUser()._id).then(data=>{
+      InstructorServices.getAllTests(authServices.getLoggedInUser()._id).then(data=>{
          if(data){
           setTotalPoetries(data.length);
          }
      });
-      poetServices.getSubscribers(authServices.getLoggedInUser()._id).then(data => {
+      InstructorServices.getSubscribers(authServices.getLoggedInUser()._id).then(data => {
       if(data){
 
       setTotalSubscriber(data.length);

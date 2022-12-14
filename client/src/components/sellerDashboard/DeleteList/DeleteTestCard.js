@@ -1,18 +1,18 @@
 import React from "react";
 import alert from "../../Services/Alert";
-import poetServices from "../../Services/PoetServices";
+import InstructorServices from "../../Services/InstructorServices";
 import './style.css'
 
 
-function PoetryCard({poetry}) {
+function TestCard({poetry}) {
 
 
   const [data,setData]= React.useState(poetry);
 
   const deletePoetry = (e)=>{
         e.preventDefault();
-        poetServices.deletePoetry(data._id).then(result=>{
-               alert.showSuccessAlert("Poetry is deleted successfully");
+        InstructorServices.deleteTest(data._id).then(result=>{
+               alert.showSuccessAlert("Test is deleted successfully");
                window.location.reload("/app/seller/delete")
         }).catch(error=>{
           alert.showErrorAlert(error.message);
@@ -47,4 +47,4 @@ function PoetryCard({poetry}) {
   );
 }
 
-export default PoetryCard;
+export default TestCard;

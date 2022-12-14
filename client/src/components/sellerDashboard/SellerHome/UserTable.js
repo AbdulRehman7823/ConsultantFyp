@@ -1,7 +1,7 @@
 import React from "react";
 import alert from "../../Services/Alert";
 import authServices from "../../Services/AuthServices";
-import poetServices from "../../Services/PoetServices";
+import instructorServices from "../../Services/InstructorServices";
 
 
 
@@ -10,7 +10,7 @@ function UserTable() {
 const [readers,setReaders] = React.useState([]);
 
 const getAllReaders =  ()=>{
-       poetServices.getReaders(authServices.getLoggedInUser()._id).then(data=>{
+       instructorServices.getCandidates(authServices.getLoggedInUser()._id).then(data=>{
         console.log(data);
         setReaders(data);
       }).catch(err=>{

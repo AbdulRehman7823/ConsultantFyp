@@ -1,13 +1,13 @@
 import React from "react";
 import SubscriberCard from "./SubscriberCard";
-import poetServices from "../../Services/PoetServices";
+import InstructorServices from "../../Services/InstructorServices";
 import authServices from "../../Services/AuthServices";
 
 function SubscriberList() {
   const [subscribers, setSubscribers] = React.useState([]);
 
   const getAllSubscribers = () => {
-    poetServices
+    InstructorServices
       .getSubscribers(authServices.getLoggedInUser()._id)
       .then((data) => {
         if (data) {
