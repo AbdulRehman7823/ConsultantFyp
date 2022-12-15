@@ -19,6 +19,7 @@ import Navbar from './components/FrontPageComponents/Navbar/Navbar'
 import Footer from './components/FrontPageComponents/Footer/Footer';
 import AboutUs from './components/AboutUs/AboutUs';
 import PlayQuiz from './components/QuickTest/PlayQuiz'
+import PlayQuiz2 from './components/Tests/PlayQuiz2'
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/contactus" element = {<ContactPage/>}/>
         <Route path="/aboutus" element = {<AboutUs/>}/>
         <Route path="/quicktest" element = {<PlayQuiz/>}/>
+        <Route path="/quicktest2" element = {<PlayQuiz2/>}/>
         <Route path="/app/seller/home" element={<SellerHomePage/>}/>
          <Route path="/app/seller/add" element={<SellerAddComponentPage/>}/>
          <Route path="/app/seller/delete" element={<SellerDeleteComponentPage/>}/>

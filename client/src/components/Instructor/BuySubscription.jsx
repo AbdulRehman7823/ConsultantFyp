@@ -67,7 +67,7 @@ export default function BuySubscription() {
                 ></path>
               </svg>
               <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                Life time Free posts
+                Life time Free Consultancy
               </span>
             </li>
             <li class="flex space-x-3">
@@ -86,7 +86,7 @@ export default function BuySubscription() {
                 ></path>
               </svg>
               <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                Poet Guidance
+                Instructor Guidance
               </span>
             </li>
             <li class="flex space-x-3">
@@ -105,7 +105,7 @@ export default function BuySubscription() {
                 ></path>
               </svg>
               <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                Free Poetry books
+                Free DAT tests 
               </span>
             </li>
 

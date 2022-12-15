@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate,useLocation } from "react-router-dom";
 
 function TestCard({ test }) {
+
+  const navigation = useNavigate();
+  const handler=()=>{
+    navigation("/quicktest2", { state: { test: test } });
+  }
+
   return (
-    <div className="p-2 card">
+    <div className="p-2 card"  onClick={handler}>
     <a className="card flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <img
         className="object-cover w-full rounded-t-lg md:h-56 md:w-48 md:rounded-none md:rounded-l-lg"

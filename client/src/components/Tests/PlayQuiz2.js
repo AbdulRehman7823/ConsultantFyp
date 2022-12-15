@@ -1,10 +1,16 @@
+
+import React from 'react';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { toast } from "react-toastify";
-import { resultData } from "./quizData";
 
-export default function PlayQuiz() {
+export default function PlayQuiz2() {
+  const location = useLocation();
+
   const [questions, setQuestions] = useState([]);
   const [handelText, setHandelText] = useState("");
   const [handelEmail, setHandelEmail] = useState("");
@@ -15,9 +21,12 @@ export default function PlayQuiz() {
   const [isNext, setisNext] = useState(false);
   const [repeat, setRepeat] = useState(0);
   const [suggested,setSuggested] = useState([]);
+
+  const [test,setTest]= React.useState(location.state.test);
+
   async function getQuestionsData() {
     try {
-      const result = resultData.testQuestions;
+      const result = test.testQuestions;
       setQuestions(result);
     } catch (error) {
       console.log(error);

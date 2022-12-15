@@ -255,7 +255,7 @@ function SignUp() {
                           </svg>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                             <span className="font-semibold">
-                              Click to upload
+                              Upload your Profile Image here!
                             </span>{" "}
                             or drag and drop
                           </p>
@@ -306,7 +306,7 @@ function SignUp() {
                           </svg>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                             <span className="font-semibold">
-                              Click to upload
+                              Upload you Degree document here
                             </span>{" "}
                             or drag and drop
                           </p>

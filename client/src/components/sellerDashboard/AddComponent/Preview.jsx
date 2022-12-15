@@ -46,24 +46,24 @@ function Preview({ questions }) {
                   name="radio-buttons-group"
                 >
                   <FormControlLabel
-                        value={ques.option1.optionText}
+                        value={ques.option1}
                         control={<Radio />}
-                        label={ques.option1.optionText}
+                        label={ques.option1}
                       />
                        <FormControlLabel
-                        value={ques.option2.optionText}
+                        value={ques.option2}
                         control={<Radio />}
-                        label={ques.option2.optionText}
+                        label={ques.option2}
                       />
                        <FormControlLabel
-                        value={ques.option3.optionText}
+                        value={ques.option3}
                         control={<Radio />}
-                        label={ques.option3.optionText}
+                        label={ques.option3}
                       />
                        <FormControlLabel
-                        value={ques.option4.optionText}
+                        value={ques.option4}
                         control={<Radio />}
-                        label={ques.option4.optionText}
+                        label={ques.option4}
                       />
                 </RadioGroup>
               </FormControl>

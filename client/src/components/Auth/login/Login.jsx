@@ -52,9 +52,9 @@ function Login() {
     authServices
       .login(data)
       .then((data) => {
-        if (data.userType == "instructor") {
+        if (data.userType == "candidate") {
           navigate("/");
-        } else if (data.userType == "candidate") {
+        } else if (data.userType == "instructor") {
           navigate("/app/seller/home");
         }
         setLoading(false);

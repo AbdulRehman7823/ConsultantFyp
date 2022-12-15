@@ -55,9 +55,7 @@ const InstructorTestsList = () => {
     <section class="text-gray-600 body-font">
       <div class="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap justify-center md:justify-between m-6">
-        
-
-          <div>
+           <div>
             <div className="">
               <div style={{ width: 300 }}>
                 <ReactSearchAutocomplete

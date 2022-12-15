@@ -112,27 +112,7 @@ function AddComponent() {
                 required
               />
             </div>
-            <div>
-              <label
-                for="countries"
-                className="block mb-2 text-sm font-medium text-gray-100 dark:text-white"
-              >
-                Select an Test Type
-              </label>
-              <select
-                id="countries"
-                onChange={(e) => {
-                  handleData("poetryType", e.target.value);
-                }}
-                className=" mb-6 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option selected>Select Category</option>
-                <option value="Sad">Personality</option>
-                <option value="Love">Career</option>
-                <option value="Attitude">Gratitude</option>
-                <option value="Life">Skills</option>
-              </select>
-            </div>
+           
 
             <div>
               <label
@@ -148,7 +128,7 @@ function AddComponent() {
                 }}
                 rows="4"
                 className="mb-6 block p-2.5 w-full text-m text-gray-700 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Write your Poetry or Poetry related here...."
+                placeholder="Write about your Test here...."
               ></textarea>
             </div>
             <div className="flex items-center justify-center ">
