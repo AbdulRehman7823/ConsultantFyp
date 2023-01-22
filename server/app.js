@@ -13,12 +13,15 @@ const instructorRouter = require("./routes/api/InstructorApi");
 const candidateRouter = require("./routes/api/candidateApi");
 const paymentRouter = require("./routes/api/stripe");
 const chatRouter = require("./routes/api/ChatApi");
+const passwordResetRoutes = require("./routes/api/PasswordReset")
+const feedbackRouter = require("./routes/api/FeedBackApi");
 var debug = require("debug")("fypbackend:server");
 const User = require("./models/User");
 var http = require("http");
 const { Server } = require("socket.io");
 var app = express();
 app.use(cors({ origin: true, credentials: true }));
+
 
 var server = http.createServer(app);
 
@@ -80,6 +83,8 @@ app.use("/api/instructor", instructorRouter);
 app.use("/api/reader", candidateRouter);
 app.use("/api/checkout", paymentRouter);
 app.use("/api/chat", chatRouter);
+app.use('/api/password-reset',passwordResetRoutes);
+app.use("/api/feedback",feedbackRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

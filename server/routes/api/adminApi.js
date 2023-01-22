@@ -21,7 +21,7 @@ router.post('/login',async (req, res)=>{
 
 router.get("/instructors", async (req, res) => {
   try {
-    let instructors = await User.find({userType:"instructor"},{username:1,email:1,img:1,userType:1,document:1,subscriptionfee:1});
+    let instructors = await User.find({userType:"instructor"},{username:1,email:1,img:1,userType:1,document:1,fee:1});
     if (instructors.length > 0) {
       res.status(200).send(instructors);
     } else {

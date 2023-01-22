@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import Products from "./components/Poetries";

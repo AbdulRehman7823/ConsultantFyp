@@ -54,7 +54,7 @@ React.useEffect(getAllReaders,[]);
               </th>
               <td className="py-4 px-6">{data.username}</td>
               <td className="py-4 px-6">{data.email}</td>
-              <td className="py-4 px-6">{data.fee}</td>
+              <td className="py-4 px-6">{data.fee? data.fee: authServices.getLoggedInUser().fee}</td>
             
             </tr>)
             })}

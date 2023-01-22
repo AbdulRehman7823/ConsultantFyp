@@ -9,6 +9,9 @@ import FileUploader from "../../FileUploader";
 import convertImageToBase64 from "../../ImageBase64";
 import { uploadImage } from "../../ImageUpload";
 import alert from "../../Services/Alert";
+import Select from 'react-select';
+
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,6 +47,20 @@ function a11yProps(index) {
 }
 
 function Questions( {quiz,setQuiz}) {
+
+
+  const suggestionOptions = [
+    { value: 'computer science', label: 'computer science' },
+    { value: 'design', label: 'design' },
+    { value: 'architecture', label: 'architecture' },
+    { value: 'law', label: 'law' },
+    { value: 'animations', label: 'animations' },
+    { value: 'architecture', label: 'architecture' },
+    { value: 'construction', label: 'construction' },
+    { value: 'carpentry', label: 'carpentry' },
+    { value: 'laboratory technician', label: 'laboratory technician' },
+    { value: 'mechanics', label: 'mechanics' },
+  ];
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -121,6 +138,7 @@ function Questions( {quiz,setQuiz}) {
         || data.option3===""
         || data.option4===""
         || data.answerText===""
+        || data.suggestions.length==0
         ){
           alert.showErrorAlert("All details are required");
           return;
@@ -131,8 +149,17 @@ function Questions( {quiz,setQuiz}) {
       const quizObject = {...quiz}
       quizObject.testQuestions = [...questionArray];
       setQuiz(quizObject)
+      alert.showSuccessAlert("Question Added Successfully");
     };
 
+
+    const handleSuggestionsSelect = (selectedOptions)=>{
+      var suggestedOptions = [];
+      selectedOptions.map(option=>{
+        suggestedOptions.push(option.value);
+      })
+      handleData("suggestions", suggestedOptions);
+    }
     return (
       <div>
         <div className="inline-flex justify-center items-center ">
@@ -162,7 +189,7 @@ function Questions( {quiz,setQuiz}) {
             placeholder="Write your Question here...."
           ></textarea>
         </div>
-        {checked ? (
+        {!checked ? (
           <div>
             <label
               for="title"
@@ -245,6 +272,15 @@ function Questions( {quiz,setQuiz}) {
             </option>
             <option value="Space Relation">Space Relation</option>
           </select>
+        </div>
+        <div>
+        <label
+            for="countries"
+            className="block mb-2 text-sm font-medium text-gray-100 dark:text-white"
+          >
+            Select Question Type
+          </label>
+          <Select isMulti onChange={handleSuggestionsSelect} options={suggestionOptions} />
         </div>
         <h1 className="text-gray-200 text-xl mb-2">Options</h1>
         <div className="flex flex-wrap flex-row justify-around">

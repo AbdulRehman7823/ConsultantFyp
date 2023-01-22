@@ -3,8 +3,14 @@ import axios from "axios";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { toast } from "react-toastify";
 import { resultData } from "./quizData";
+import alert from "../Services/Alert";
+import HashLoader from "react-spinners/HashLoader";
+import {  useNavigate } from "react-router-dom";
 
 export default function PlayQuiz() {
+
+  const navigate = useNavigate();
+
   const [questions, setQuestions] = useState([]);
   const [handelText, setHandelText] = useState("");
   const [handelEmail, setHandelEmail] = useState("");
@@ -14,7 +20,11 @@ export default function PlayQuiz() {
   const [showScore, setShowScore] = useState(false);
   const [isNext, setisNext] = useState(false);
   const [repeat, setRepeat] = useState(0);
-  const [suggested,setSuggested] = useState([]);
+  const [suggested, setSuggested] = useState([]);
+
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackEmail, setFeedbackEmail] = useState("");
+  const [Loading,setLoading] = useState(false);
   async function getQuestionsData() {
     try {
       const result = resultData.testQuestions;
@@ -72,6 +82,7 @@ export default function PlayQuiz() {
   };
 
   const handleNext = () => {
+   
     const nextQues = currentQuestion + 1;
     nextQues < questions.length && setCurrentQuestion(nextQues);
     setisNext(true);
@@ -79,10 +90,11 @@ export default function PlayQuiz() {
   };
 
   const handleSubmitButton = () => {
+    console.log("in submit finction");
     let newScore = 0;
 
     var mp = new Map();
-    mp.set("",0);
+    mp.set("", 0);
 
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].answerText === selectedOptions[i].answerByUser) {
@@ -94,23 +106,51 @@ export default function PlayQuiz() {
             mp.set(value, questions[i].score);
           }
         });
-      }
 
-      newScore += questions[i].score;
+        newScore += questions[i].score;
+      }
     }
 
     const sortedMap = new Map([...mp].sort((a, b) => b[1] - a[1]));
-    console.log("sortedmap")
-    console.log(sortedMap)
+    console.log("sortedmap");
+    console.log(sortedMap);
     const array = [...sortedMap.keys()];
-    console.log("array")
-    console.log(array)
+    console.log("array");
+    console.log(array);
     const suggestionsElements = array.slice(0, 4);
-    console.log("suggestionsElements")
-    console.log(suggestionsElements)
-    setSuggested(suggestionsElements)
+    console.log("suggestionsElements");
+    console.log(suggestionsElements);
+    setSuggested(suggestionsElements);
     setScore(newScore);
     setShowScore(true);
+  };
+
+  const HandleFeedBack = () => {
+    if (feedbackEmail === "" || feedbackMessage === "") {
+      alert.showErrorAlert("Feedback details are required");
+      return;
+    }
+
+    setLoading(true);
+    const object = {
+      userEmail: feedbackEmail,
+      feedback: feedbackMessage,
+    };
+    const url = `http://localhost:4000/api/feedback`;
+    axios
+      .post(url, object)
+      .then((response) => {
+        setLoading(false);
+        alert.showSuccessAlert(" Feed Back is sumitted Successfully");
+        navigate("/");
+        console.log(response);
+
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert.showErrorAlert("There is some Error with server!");
+        console.log(err)
+      });
   };
 
   return (
@@ -126,22 +166,19 @@ export default function PlayQuiz() {
                   alt="blog"
                 />
                 <h1 className="flex justify-center font-bold text-xl mb-5 text-green-500  mt-3">
-                  You scored {score} out of {questions.length*5}
+                  You scored {score} out of {questions.length * 5}
                 </h1>
                 <div>
-                  {suggested.map((data,index)=>{
+                  {suggested.map((data, index) => {
                     return (
-                      <h1 key={index} class="text-xl text-gray-200 font-bold">{index+1}.{data}</h1>
-                    )
+                      <h1 key={index} class="text-xl text-gray-200 font-bold">
+                        {index + 1}.{data}
+                      </h1>
+                    );
                   })}
                 </div>
               </div>
-              <div
-                className="text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg text-center justify-center cursor-pointer flex mt-2 mx-auto"
-                onClick={(e) => savePoints()}
-              >
-                Save
-              </div>
+
               <div
                 className="text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg text-center justify-center cursor-pointer flex mt-2 mx-auto"
                 onClick={(e) => {
@@ -154,8 +191,33 @@ export default function PlayQuiz() {
                 Again?
               </div>
 
-              <div className="text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg text-center justify-center cursor-pointer flex mt-2 mx-auto">
+              <div onClick={()=>{navigate("/")}} className="text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg text-center justify-center cursor-pointer flex mt-2 mx-auto">
                 Home
+              </div>
+              <div className="w-96 text-white bg-yellow-400 border-0 py-2 px-2 focus:outline-none rounded text-lg text-center justify-center  flex flex-col mt-2 mx-auto">
+                <h1>Feed Back</h1>
+                <input
+                  type="email"
+                  id="email"
+                  onChange={(e) => setFeedbackEmail(e.target.value)}
+                  className="bg-gray-50 my-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="email@company.com"
+                />
+                <div>
+                  <textarea
+                    id="message"
+                    rows="5"
+                    onChange={(e) => setFeedbackMessage(e.target.value)}
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Write your FeedBack here..."
+                  ></textarea>
+                </div>
+               {Loading?     <HashLoader color="#2d38cf" size="50" />: <button
+                  onClick={HandleFeedBack}
+                  className="bg-green-400 rounded-lg px-4 py-2 m-2  hover:bg-green-600 cursor-pointer"
+                >
+                  Submit
+                </button>}
               </div>
             </div>
           </div>
@@ -169,6 +231,7 @@ export default function PlayQuiz() {
                 <div className="text-gray-200 mt-8">
                   <CountdownCircleTimer
                     isPlaying
+                    key={currentQuestion}
                     size={60}
                     duration={30}
                     colors={["#004777", "#F7B801", "#A30000", "#A30000"]}

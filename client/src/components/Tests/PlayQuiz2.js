@@ -4,12 +4,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import HashLoader from "react-spinners/HashLoader";
+
 
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { toast } from "react-toastify";
+import authServices from '../Services/AuthServices';
+import alert from '../Services/Alert';
 
 export default function PlayQuiz2() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [questions, setQuestions] = useState([]);
   const [handelText, setHandelText] = useState("");
@@ -21,7 +26,10 @@ export default function PlayQuiz2() {
   const [isNext, setisNext] = useState(false);
   const [repeat, setRepeat] = useState(0);
   const [suggested,setSuggested] = useState([]);
-
+  const [remainingTime2,setRemainingTime2] = useState(10);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackEmail, setFeedbackEmail] = useState("");
+  const [Loading,setLoading] = useState(false);
   const [test,setTest]= React.useState(location.state.test);
 
   async function getQuestionsData() {
@@ -85,6 +93,7 @@ export default function PlayQuiz2() {
     nextQues < questions.length && setCurrentQuestion(nextQues);
     setisNext(true);
     setRepeat(30);
+    
   };
 
   const handleSubmitButton = () => {
@@ -103,9 +112,10 @@ export default function PlayQuiz2() {
             mp.set(value, questions[i].score);
           }
         });
+        newScore += questions[i].score;
+
       }
 
-      newScore += questions[i].score;
     }
 
     const sortedMap = new Map([...mp].sort((a, b) => b[1] - a[1]));
@@ -122,6 +132,35 @@ export default function PlayQuiz2() {
     setShowScore(true);
   };
 
+  
+  const HandleFeedBack = () => {
+    if (feedbackEmail === "" || feedbackMessage === "") {
+      alert.showErrorAlert("Feedback details are required");
+      return;
+    }
+
+    setLoading(true);
+    const object = {
+      userEmail: feedbackEmail,
+      feedback: feedbackMessage,
+    };
+    console.log(object);
+    const url = `http://localhost:4000/api/feedback`;
+    axios
+      .post(url, object)
+      .then((response) => {
+        setLoading(false);
+        alert.showSuccessAlert(" Feed Back is sumitted Successfully");
+        navigate("/");
+        console.log(response);
+
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert.showErrorAlert("There is some Error with server!");
+        console.log(err)
+      });
+  };
   return (
     <div className="py-28 flex flex-col px-5 bg-gray-900 justify-center items-center">
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
@@ -145,12 +184,7 @@ export default function PlayQuiz2() {
                   })}
                 </div>
               </div>
-              <div
-                className="text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg text-center justify-center cursor-pointer flex mt-2 mx-auto"
-                onClick={(e) => savePoints()}
-              >
-                Save
-              </div>
+             
               <div
                 className="text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg text-center justify-center cursor-pointer flex mt-2 mx-auto"
                 onClick={(e) => {
@@ -166,6 +200,34 @@ export default function PlayQuiz2() {
               <div className="text-white bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg text-center justify-center cursor-pointer flex mt-2 mx-auto">
                 Home
               </div>
+              <div className="w-96 text-white bg-yellow-400 border-0 py-2 px-2 focus:outline-none rounded text-lg text-center justify-center  flex flex-col mt-2 mx-auto">
+                <h1>Feed Back</h1>
+                <input
+                  type="email"
+                  id="email"
+                  value={authServices.getLoggedInUser().email}
+                  onChange={(e) => setFeedbackEmail(e.target.value)}
+                  className="bg-gray-50 my-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="email@company.com"
+                  disabled={authServices.getLoggedInUser().email===""}
+                />
+                <div>
+                  <textarea
+                    id="message"
+                    rows="5"
+                    onChange={(e) => setFeedbackMessage(e.target.value)}
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Write your FeedBack here..."
+                  ></textarea>
+                </div>
+               {Loading?     <HashLoader color="#2d38cf" size="50" />: <button
+                  onClick={HandleFeedBack}
+                  className="bg-green-400 rounded-lg px-4 py-2 m-2  hover:bg-green-600 cursor-pointer"
+                >
+                  Submit
+                </button>}
+              </div>
+            
             </div>
           </div>
         ) : questions.length > 1 ? (
@@ -179,9 +241,10 @@ export default function PlayQuiz2() {
                   <CountdownCircleTimer
                     isPlaying
                     size={60}
+                    key={currentQuestion}
                     duration={30}
                     colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                    colorsTime={[7, 5, 2, 0]}
+                    colorsTime={[7, 5, 2, 0]}                    
                     onComplete={() => {
                       currentQuestion + 1 === questions.length
                         ? handleSubmitButton()

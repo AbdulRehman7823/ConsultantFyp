@@ -3,8 +3,9 @@ const router = express.Router();
 const { verifyToken } = require("../../middlewares/authenticate");
 const User = require("../../models/User");
 const Test = require("../../models/Test");
+const CryptoJS = require("crypto-js");
 
-router.get("/candidate/:id", async (req, res) => {
+router.get("/candidates/:id", async (req, res) => {
   try {
     console.log(req.params.id);
     const instructor = await User.findById(req.params.id);
@@ -90,15 +91,38 @@ router.post("/accept/:id", verifyToken, async (req, res) => {
   }
 });
 
-router.get("/:id", verifyToken, async (req, res) => {
+
+
+router.put("/:id", async (req, res) => {
   try {
     const instructor = await User.findById(req.params.id);
     if (instructor) {
+      (req.body.password = CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.PASS_SEC
+      ).toString()),
+        Object.assign(instructor, req.body);
+      await instructor.save();
       res.status(200).send(instructor);
     } else {
-      res
-        .status(422)
-        .send({ message: "There  is no instructor with this ID." });
+      res.status(422).send({ message: "There  is no instructor with this ID." });
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const instructor = await User.findById(req.params.id);
+    if (instructor) {
+      instructor.password = CryptoJS.AES.decrypt(
+        instructor.password,
+        process.env.PASS_SEC
+      ).toString(CryptoJS.enc.Utf8);
+      res.status(200).send(instructor);
+    } else {
+      res.status(422).send({ message: "There  is no instructor with this ID." });
     }
   } catch (error) {
     res.status(500).send(error.message);

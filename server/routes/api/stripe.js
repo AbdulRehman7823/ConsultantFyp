@@ -24,8 +24,8 @@ router.post("/create-checkout", async (req, res) => {
     ],
 
     mode: "payment",
-    success_url: `${process.env.SERVER_URL}success/`,
-    cancel_url: `${process.env.SERVER_URL}cancel`,
+    success_url: `${process.env.BASE_URL}payment/success/${orderedItem.instructorId}`,
+    cancel_url: `${process.env.BASE_URL}payment/cancel/`,
   });
   res.status(200).send(session);
 });

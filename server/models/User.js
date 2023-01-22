@@ -9,6 +9,9 @@ const userSchema = mongoose.Schema(
     img: { type: String },
     documentImage: { type:String},
     scores: { type: Number},
+    verified: { type: Boolean,default: false },
+    fee: { type: Number },
+
     instructors:[
       {instructorId: { type: String}}
      ],

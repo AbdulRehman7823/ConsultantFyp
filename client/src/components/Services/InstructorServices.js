@@ -9,6 +9,8 @@ class InstructorServices extends GenericService {
   addTest = (data)=> this.post("test/",data)
   getAllTests = (_id) => this.get("instructor/tests/"+_id);
   deleteTest = (_id) => this.delete("test/"+_id)
+  getInstructor = (_id) => this.get("/instructor/" + _id);
+  updateInstructor = (_id, data) => this.put("/instructor/" + _id, data);
  
 }
 let instructorServices = new InstructorServices();

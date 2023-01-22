@@ -4,7 +4,7 @@ import UserTable from './UserTable';
 function SellerHome() {
   return (
     <div className="p-14">
-      <TopCard></TopCard>
+     
       <UserTable></UserTable>
     </div>
   )

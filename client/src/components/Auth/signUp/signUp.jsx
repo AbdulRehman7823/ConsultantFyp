@@ -15,7 +15,7 @@ function SignUp() {
     username: "",
     email: "",
     password: "",
-    userType: "",
+    userType: "instructor",
     img: "",
     documentImage: "",
   });
@@ -27,12 +27,14 @@ function SignUp() {
   const [iurlDocument, setIurlDocument] = React.useState("");
   const [isValidPassword, setIsValidPassword] = React.useState(false);
   const [isValidEmail, setIsValidEmail] = React.useState(false);
+
+  const [error, setError] = useState("");
+	const [msg, setMsg] = useState("");
   const signUp = (e) => {
     if (
       data.email === "" ||
       data.password === "" ||
       data.img === "" ||
-      data.documentImage === "" ||
       data.userType === ""
     ) {
       alert.showErrorAlert("All Details are Required");
@@ -44,13 +46,23 @@ function SignUp() {
         .registerUser(data)
         .then((data) => {
           alert.showSuccessAlert("The user registered successfully!");
-          navigate("/login");
-          setLoading(true);
+          setLoading(false);
+          setError("");
+          setMsg(data.message);
         })
         .catch((err) => {
-          alert.showErrorAlert(err.response.data.message);
-          console.log(err.response.data.message);
-        });
+          setLoading(false);
+          console.log(err);
+          if (
+            err.response &&
+            err.response.status >= 400 &&
+            err.response.status <= 500
+          ) {
+            setError(err.response.data.message);
+            alert.showErrorAlert(err.response.data.message);
+            
+          }
+                 });
     }
   };
   function handleData(key, value) {
@@ -228,6 +240,9 @@ function SignUp() {
                   >
                     Sign In
                   </button>
+                  {error && <div className="error_msg">{error}</div>}
+                  {msg && <div className="success_msg">{msg}</div>}
+              
                 </div>
                 <div></div>
                 <div className="flex flex-col justify-around">
@@ -282,6 +297,7 @@ function SignUp() {
                       />
                     )}
                   </div>
+                  {data.userType==="instructor"?
                   <div className="flex items-center justify-center w-full">
                     {iurlDocument == "" ? (
                       <label
@@ -333,6 +349,7 @@ function SignUp() {
                       />
                     )}
                   </div>
+                  :<></>}
                 </div>
               </form>
 

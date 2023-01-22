@@ -134,9 +134,9 @@ function Login() {
             </div>
 
             <div className="text-right mt-2">
-              <a className="text-sm font-semibold text-skin-base hover:text-blue-700 focus:text-blue-700">
-                Forgot Password?
-              </a>
+            <a onClick={()=>{navigate("/forgot-password")}} className="text-sm font-semibold text-skin-base hover:text-blue-700 focus:text-blue-700">
+                    Forgot Password?
+                  </a>
             </div>
 
             <button

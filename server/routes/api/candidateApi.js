@@ -86,24 +86,14 @@ router.post("/request/instructor/:id", verifyToken, async (req, res) => {
         username: candidate.username,
         email: candidate.email,
         img: candidate.img,
-        data: req.body.data,
+        fee: instructor.fee
       };
 
       candidate.instructors.push(instructor.id);
       instructor.instructorCustomers.push(object);
       await instructor.save();
       await candidate.save();
-
-      const response = await axios.post(
-        "http://localhost:3000/api/checkout/payment",
-        {
-          tokenId: req.body.tokenId,
-          amount: req.body.amount,
-        }
-      );
-      return res
-        .status(200)
-        .json({ candidate: candidate, instructor: instructor, Response: response });
+      return res.status(200).send({ message: "Subscribed Successfully"});
     } else {
       return res
         .status(422)
