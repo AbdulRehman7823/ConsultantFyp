@@ -10,7 +10,7 @@ const Navbar = () => {
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top  ">
         <div class="container">
           <Link class="navbar-brand" href="#" to="/">
-            POET PRIME
+            CAREER SPAN
           </Link>
           <button
             class="navbar-toggler"
@@ -32,9 +32,9 @@ const Navbar = () => {
                       class="nav-link active"
                       aria-current="page"
                       href="#"
-                      to="/poetries"
+                      to="/tests"
                     >
-                      Poetries
+                      Test
                     </Link>
                   </li>
                   <li class="nav-item">
@@ -56,7 +56,7 @@ const Navbar = () => {
                     aria-current="page"
                     href="#"
                   >
-                    Hi, Ahmad Raza
+                    Hi, Shadab
                   </li>
                 </>
               ) : (

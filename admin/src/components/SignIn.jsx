@@ -31,8 +31,8 @@ const SignIn = () => {
       <div className="container">
         <div className="row from-row">
           <div className="col-lg-5 form-brand">
-            <h1>Poet Prime</h1>
-            <h3>Poetry is nearer to vital truth than history</h3>
+            <h1>Career Span</h1>
+            
           </div>
           <div className="col-lg-7 px-5">
             <h2 className="mt-3">Login</h2>

@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import readerServices from "../Services/ReaderServices";
+import adminService from "../../Services/AdminServices";
 import RiseLoader from "react-spinners/RiseLoader";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
-import PoetryCard from "./PoetryCard";
+import TestCard from "./TestCard";
 
-const PoetryList = () => {
+const TestList = () => {
   const [loading, setLoading] = React.useState(false);
 
-  const [poetries, setPoetries] = React.useState([]);
+  const [tests, settests] = React.useState([]);
   function getData() {
     setLoading(true);
 
-    readerServices
-      .getPoetries()
+    adminService
+      .getTests()
       .then((data) => {
         console.log(data);
-        setPoetries(data);
+        settests(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -27,18 +27,18 @@ const PoetryList = () => {
   const handleOnSearch = (string, results) => {
     console.log(string, results);
   };
-  const handleOnSelect = (poetry) => {
-    setPoetries([poetry]);
+  const handleOnSelect = (test) => {
+    settests([test]);
   };
   const handleClear = () => {
-    setPoetries([]);
+    settests([]);
     getData();
   };
-  const formatResult = (poet) => {
+  const formatResult = (test) => {
     return (
       <>
         <span style={{ display: "block", textAlign: "left" }}>
-          {poet.title}
+          {test.title}
         </span>
       </>
     );
@@ -55,7 +55,7 @@ const PoetryList = () => {
             <div className="">
               <div style={{ width: 300 }}>
                 <ReactSearchAutocomplete
-                  items={poetries}
+                  items={tests}
                   fuseOptions={{ keys: ["title"] }}
                   resultStringKeyName="title"
                   onSelect={handleOnSelect}
@@ -71,13 +71,9 @@ const PoetryList = () => {
           </div>
           <div className="header_text mt-24">
             <h1 class="w-full items-center mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-              Poets of the new Generation
+              These are the Following Tests
             </h1>
-            <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-              An unhappy person who conceals profound anguish in his heart but
-              whose lips are so formed that as sighs and cries pass over them
-              they sound like beautiful music
-            </p>
+         
           </div>
         </div>
         <div className="flexjustify-center">
@@ -87,13 +83,13 @@ const PoetryList = () => {
             css={"margin-top:400px"}
           />
         </div>
-        {poetries.length === 0 && !loading ? (
-          <p>There is no poetry yet!</p>
+        {tests.length === 0 && !loading ? (
+          <p>There is no Tests yet!</p>
         ) : (
           <div class="flex py-6 rounded-xl bg-gray-100 flex-wrap justify-between flex-row">
-            {poetries.map((poetry, index) => (
+            {tests.map((test, index) => (
               
-                <PoetryCard key={index} poetry={poetry}></PoetryCard>
+                <TestCard key={index} test={test}></TestCard>
             
             ))}
           </div>
@@ -103,4 +99,4 @@ const PoetryList = () => {
   );
 };
 
-export default PoetryList;
+export default TestList;

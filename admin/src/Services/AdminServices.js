@@ -4,13 +4,12 @@ class AdminServices extends GenericService {
   constructor() {
     super();
   }
-  getPoets = () => this.get("poets");
-
-  getReaders = () => this.get("readers");
-  getPoetries = () => this.get("poetries");
+  getInstructors = () => this.get("instructors");
+  getCandidates = () => this.get("candidates");
 
   deleteUser = (_id) => this.delete("user/" + _id);
-  deletePoetry = (_id) => this.delete("poetries/" + _id);
+  deleteTests = (_id) => this.delete("test/" + _id);
+  getTests = (_id) => this.get("tests");
 
   login = (data) =>
     new Promise((resolve, reject) => {

@@ -20,6 +20,7 @@ const InstructorCardList = () => {
         console.log(err);
       });
   }
+  
   const handleOnSearch = (string, results) => {
     console.log(string, results);
   };

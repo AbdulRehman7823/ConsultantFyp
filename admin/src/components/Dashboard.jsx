@@ -27,15 +27,14 @@ const Dashboard = () => {
                 </div>
                 <div class="col-8">
                   <div class="card-body">
-                    <h5 class="card-title">Poets</h5>
+                    <h5 class="card-title">Instructors</h5>
                     <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural
+                      View Instructors data
                     </p>
                     <button
                       className="btn btn-primary"
                       onClick={() => {
-                        if (adminServices.isLoggedIn()) navigate("/poets");
+                        if (adminServices.isLoggedIn()) navigate("/instructors");
                         else {
                           alert.showErrorAlert("you should must login");
                         }
@@ -61,15 +60,14 @@ const Dashboard = () => {
                 </div>
                 <div class="col-8">
                   <div class="card-body">
-                    <h5 class="card-title">Readers</h5>
+                    <h5 class="card-title">Candidates</h5>
                     <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural
+                      View Candidate data
                     </p>
                     <button
                       className="btn btn-primary "
                       onClick={() => {
-                        if (adminServices.isLoggedIn()) navigate("/readers");
+                        if (adminServices.isLoggedIn()) navigate("/candidates");
                         else {
                           alert.showErrorAlert("you should must login");
                         }

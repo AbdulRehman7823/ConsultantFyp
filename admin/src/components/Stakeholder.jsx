@@ -29,8 +29,8 @@ const Stakeholder = ({ stakeholder, dataType }) => {
           <div class="col-8">
             <div class="card-body">
               <h5 class="card-title m-0">{stakeholder.username}</h5>
-              <p class="card-text m-0">{stakeholder.specialization}</p>
-              <p class="card-text m-0">{stakeholder.phone}</p>
+              {dataType==="instructor"?<img src={stakeholder.documentImage}class="card-text m-0"/>:<></>}
+              <p class="card-text m-0">{stakeholder.verified?"True":"False"}</p>
               <p class="card-text">
                 <a>{stakeholder.email}</a>
               </p>

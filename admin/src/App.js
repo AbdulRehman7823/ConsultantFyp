@@ -1,7 +1,7 @@
 import React from "react";
 import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
-import Products from "./components/Poetries";
+import Products from "./components/tests/TestList";
 import SignIn from "./components/SignIn";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StakeholderMapper from "./components/StakeholderMapper";
@@ -21,27 +21,27 @@ function App() {
         />
         <Routes>
           <Route
-            path="/poets"
+            path="/instructors"
             element={
               <StakeholderMapper
-                method={adminServices.getPoets}
-                dataType={"Poets"}
+                method={adminServices.getInstructors}
+                dataType={"instructors"}
               />
             }
           />
 
           <Route
-            path="/readers"
+            path="/candidates"
             element={
               <StakeholderMapper
-                method={adminServices.getReaders}
-                dataType={"Readers"}
+                method={adminServices.getCandidates}
+                dataType={"candidates"}
               />
             }
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<SignIn />} />
-          <Route path="/poetries" element={<Products />} />
+          <Route path="/tests" element={<Products />} />
           <Route path="/" element={<Dashboard />} />
         </Routes>
       </div>
